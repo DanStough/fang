@@ -122,10 +122,11 @@ func Execute(ctx context.Context, root *cobra.Command, options ...Option) error 
 	for _, option := range options {
 		option(&opts)
 	}
+	styles := makeStyles(mustColorscheme(opts.colorscheme))
 
 	helpFunc := func(c *cobra.Command, _ []string) {
 		w := colorprofile.NewWriter(c.OutOrStdout(), os.Environ())
-		helpFn(c, w, makeStyles(mustColorscheme(opts.colorscheme)))
+		helpFn(c, w, styles)
 	}
 
 	root.SilenceUsage = true
@@ -176,7 +177,7 @@ func Execute(ctx context.Context, root *cobra.Command, options ...Option) error 
 			}
 		}
 		w := colorprofile.NewWriter(root.ErrOrStderr(), os.Environ())
-		opts.errHandler(w, makeStyles(mustColorscheme(opts.colorscheme)), err)
+		opts.errHandler(w, styles, err)
 		return err //nolint:wrapcheck
 	}
 	return nil
