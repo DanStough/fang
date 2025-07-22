@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/charmbracelet/fang"
+	"github.com/DanStough/fang"
 	"github.com/spf13/cobra"
 )
 
